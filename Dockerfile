@@ -1,5 +1,5 @@
 # Build stage
-FROM node:lts-alpine AS build
+FROM node:16-alpine AS build
 WORKDIR /build
 
 # Install modules with dev dependencies
@@ -16,7 +16,7 @@ RUN rm -rf ./node_modules
 RUN yarn install --production
 
 # Bundle stage
-FROM node:18-alpine AS production
+FROM node:16-alpine AS production
 
 WORKDIR /app
 
