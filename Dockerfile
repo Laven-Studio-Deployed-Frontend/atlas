@@ -1,5 +1,5 @@
 # Build stage
-FROM node:lts-alpine AS build
+FROM node:18.19-alpine3.19 AS build
 WORKDIR /build
 
 # Install modules with dev dependencies
@@ -16,7 +16,7 @@ RUN rm -rf ./node_modules
 RUN yarn install --production --frozen-lockfile
 
 # Bundle stage
-FROM node:15-alpine AS production
+FROM node:18.19-alpine3.19 AS production
 
 WORKDIR /app
 
