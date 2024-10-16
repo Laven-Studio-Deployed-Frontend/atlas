@@ -2,6 +2,8 @@
 FROM node:16-alpine AS build
 WORKDIR /build
 
+RUN apk add openssl1.1-compat
+
 # Install modules with dev dependencies
 COPY package.json yarn.lock /build/
 RUN yarn install
