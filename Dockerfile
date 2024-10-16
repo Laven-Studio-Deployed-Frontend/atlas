@@ -1,13 +1,10 @@
 # Build stage
-FROM node:alpine3.16 AS build
+FROM node:lts-alpine AS build
 WORKDIR /build
-
-# Install OpenSSL for build stage
-RUN apk add --update --no-cache openssl1.1-compat
 
 # Install modules with dev dependencies
 COPY package.json yarn.lock /build/
-RUN yarn install
+RUN yarn install --frozen-lockfile
 
 # Build
 COPY . /build
@@ -16,7 +13,7 @@ RUN yarn build
 
 # Regenerate node modules as production
 RUN rm -rf ./node_modules
-RUN yarn install --production
+RUN yarn install --production --frozen-lockfile
 
 # Bundle stage
 FROM node:18-alpine AS production
