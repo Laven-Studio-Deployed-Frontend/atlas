@@ -3,8 +3,7 @@ FROM node:lts-alpine AS build
 WORKDIR /build
 
 # Install OpenSSL for build stage
-RUN apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing openssl1.1-compat
-
+RUN apk add --no-cache openssl-dev
 
 # Install modules with dev dependencies
 COPY package.json yarn.lock /build/
@@ -20,13 +19,9 @@ RUN rm -rf ./node_modules
 RUN yarn install --production --frozen-lockfile
 
 # Bundle stage
-FROM node:15-alpine AS production
+FROM node:18 AS production  # Hoặc node:15, node:16, v.v.
 
 WORKDIR /app
-
-# Install OpenSSL for production stage
-RUN apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing openssl1.1-compat
-
 
 # Copy from build stage
 COPY --from=build /build/node_modules ./node_modules
