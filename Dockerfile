@@ -4,7 +4,7 @@ WORKDIR /build
 
 # Install modules with dev dependencies
 COPY package.json yarn.lock /build/
-RUN yarn install --frozen-lockfile
+RUN yarn install
 
 # Build
 COPY . /build
@@ -13,7 +13,7 @@ RUN yarn build
 
 # Regenerate node modules as production
 RUN rm -rf ./node_modules
-RUN yarn install --production --frozen-lockfile
+RUN yarn install --production
 
 # Bundle stage
 FROM node:18-alpine AS production
