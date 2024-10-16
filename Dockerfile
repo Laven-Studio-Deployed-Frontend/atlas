@@ -1,5 +1,5 @@
 # Build stage
-FROM node:lts-alpine AS build
+FROM node:18-alpine AS build
 WORKDIR /build
 
 # Install OpenSSL for build stage
