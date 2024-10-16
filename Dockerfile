@@ -22,6 +22,8 @@ FROM node:16-alpine AS production
 
 WORKDIR /app
 
+RUN apk add openssl1.1-compat
+
 # Copy from build stage
 COPY --from=build /build/node_modules ./node_modules
 COPY --from=build /build/yarn.lock /build/package.json ./
