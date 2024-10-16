@@ -3,7 +3,7 @@ FROM node:lts-alpine AS build
 WORKDIR /build
 
 # Install OpenSSL for build stage
-RUN apk add --no-cache openssl
+RUN apk add --update --no-cache openssl1.1-compat
 
 # Install modules with dev dependencies
 COPY package.json yarn.lock /build/
@@ -24,7 +24,7 @@ FROM node:15-alpine AS production
 WORKDIR /app
 
 # Install OpenSSL for production stage
-RUN apk add --no-cache openssl
+RUN apk add --update --no-cache openssl1.1-compat
 
 # Copy from build stage
 COPY --from=build /build/node_modules ./node_modules
